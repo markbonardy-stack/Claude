@@ -34,8 +34,9 @@ jobs:
       - name: Collect APKs
         run: |
           mkdir -p dist
-          cp app/build/outputs/apk/release-with-debug-signing/app-arm64-v8a-release-with-debug-signing.apk dist/NextPlayerPlus-0.18.0-arm64-v8a.apk
-          cp app/build/outputs/apk/release-with-debug-signing/app-universal-release-with-debug-signing.apk dist/NextPlayerPlus-0.18.0-universal.apk
+          find app/build/outputs/apk -name "*.apk" | tee dist/apk-list.txt
+          cp "$(find app/build/outputs/apk -name '*arm64-v8a*.apk' | head -1)" dist/NextPlayerPlus-0.18.0-arm64-v8a.apk
+          cp "$(find app/build/outputs/apk -name '*universal*.apk' | head -1)" dist/NextPlayerPlus-0.18.0-universal.apk
           AAPT2=$(ls -d $ANDROID_HOME/build-tools/*/ | sort -V | tail -1)aapt2
           APKSIGNER=$(ls -d $ANDROID_HOME/build-tools/*/ | sort -V | tail -1)apksigner
           {
@@ -71,6 +72,20 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A && git commit -q -m "Next Player+ APKs built from $GITHUB_SHA"
           git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" nextplayer-delete-apk
+
+      - name: Push diagnostics on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/diag && cd /tmp/diag
+          find "$GITHUB_WORKSPACE/app/build/outputs" -maxdepth 4 > outputs.txt 2>&1 || true
+          cp -r "$GITHUB_WORKSPACE/feature/playlist/build/test-results" . 2>/dev/null || true
+          git init -q -b nextplayer-delete-diag
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -q -m "Diagnostics for $GITHUB_SHA" --allow-empty
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" nextplayer-delete-diag
 
       - name: Upload test reports
         if: failure()
