@@ -1,0 +1,5 @@
+app/build/outputs/apk/release-with-debug-signing/app-arm64-v8a-release-with-debug-signing.apk
+app/build/outputs/apk/release-with-debug-signing/app-x86-release-with-debug-signing.apk
+app/build/outputs/apk/release-with-debug-signing/app-armeabi-v7a-release-with-debug-signing.apk
+app/build/outputs/apk/release-with-debug-signing/app-universal-release-with-debug-signing.apk
+app/build/outputs/apk/release-with-debug-signing/app-x86_64-release-with-debug-signing.apk

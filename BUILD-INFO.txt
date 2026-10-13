@@ -1,0 +1,23 @@
+Built from commit 9c613f92c8a1e8b04ef076722cb26cb0f96eef58
+
+== NextPlayerPlus-0.18.0-arm64-v8a.apk
+-rw-r--r-- 1 runner runner 18948110 Oct 13 21:21 dist/NextPlayerPlus-0.18.0-arm64-v8a.apk
+db2c02aa4b6d4467d66d021b95d2e0ba62a20f7f752ff0cbe1a4c2b6de6451c7  dist/NextPlayerPlus-0.18.0-arm64-v8a.apk
+package: name='dev.anilbeesetti.nextplayer.release' versionCode='74' versionName='0.18.0' platformBuildVersionName='17' platformBuildVersionCode='37' compileSdkVersion='37' compileSdkVersionCodename='17'
+targetSdkVersion:'37'
+application-label:'Next Player+'
+native-code: 'arm64-v8a'
+V2 Signer: certificate DN: CN=Android Debug, O=Android, C=US
+V2 Signer: certificate SHA-256 digest: 7e85d25c11613bb51e36beb2afd643f28a163a0982af8d6890118a8717e0187d
+V2 Signer: certificate SHA-1 digest: 8c360ded5bc0fab45eaab6792c2738d618e8ec77
+
+== NextPlayerPlus-0.18.0-universal.apk
+-rw-r--r-- 1 runner runner 54428207 Oct 13 21:21 dist/NextPlayerPlus-0.18.0-universal.apk
+6691f3bd4cf3f7505f0b0002d37e5d86f5efe0e18e53dff11feba4160895c7c2  dist/NextPlayerPlus-0.18.0-universal.apk
+package: name='dev.anilbeesetti.nextplayer.release' versionCode='74' versionName='0.18.0' platformBuildVersionName='17' platformBuildVersionCode='37' compileSdkVersion='37' compileSdkVersionCodename='17'
+targetSdkVersion:'37'
+application-label:'Next Player+'
+native-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'
+V2 Signer: certificate DN: CN=Android Debug, O=Android, C=US
+V2 Signer: certificate SHA-256 digest: 7e85d25c11613bb51e36beb2afd643f28a163a0982af8d6890118a8717e0187d
+V2 Signer: certificate SHA-1 digest: 8c360ded5bc0fab45eaab6792c2738d618e8ec77
