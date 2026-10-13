@@ -1,0 +1,52 @@
+name: Build Next Player+
+
+on:
+  push:
+    branches: [ nextplayer-delete ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run playlist unit tests
+        run: ./gradlew :feature:playlist:testDebugUnitTest --stacktrace
+
+      - name: Build APKs
+        run: ./gradlew :app:assembleRelease-with-debug-signing --stacktrace
+
+      - name: Show APK details
+        run: |
+          find app/build/outputs/apk -name "*.apk" -exec ls -la {} \;
+          AAPT2=$(ls -d $ANDROID_HOME/build-tools/*/ | sort -V | tail -1)aapt2
+          for f in $(find app/build/outputs/apk -name "*arm64*.apk"); do "$AAPT2" dump badging "$f" | grep -E "^package|application-label:"; done
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v7
+        with:
+          name: nextplayer-plus-apks
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports
+          path: '**/build/reports'
